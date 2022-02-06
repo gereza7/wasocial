@@ -11,4 +11,5 @@ export default {
   name: 'App',
   components: { Nav, Chat }
 }
+
 </script>

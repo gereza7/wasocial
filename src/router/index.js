@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Chatgeneral from '../views/Chatgeneral.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/chatgeneral',
+    name: 'Chatgeneral',
+    component: Chatgeneral
   },
   {
     path: '/about',
@@ -16,6 +22,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
+ 
 ]
 
 const router = createRouter({
