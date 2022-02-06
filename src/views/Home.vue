@@ -1,5 +1,4 @@
 <template>
-
   <div
     class="
       min-h-full
@@ -18,13 +17,18 @@
           class="mx-auto h-12 w-auto"
           src="https://i.ibb.co/wCxsJpS/logo.png"
           alt="Workflow"
-          style="height:200px"
+          style="height: 200px"
         />
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-100">
-         Inicio de sesión
+          Inicio de sesión
         </h2>
       </div>
-      <form class="mt-8 space-y-6" action="#" method="POST">
+      <form
+        @click="signIn"
+        class="mt-8 space-y-6"
+        action="#"
+        method="POST"
+      >
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
@@ -32,6 +36,7 @@
             <input
               id="email-address"
               name="email"
+              v-model="usuario"
               type="email"
               autocomplete="email"
               required=""
@@ -61,6 +66,7 @@
             <input
               id="password"
               name="password"
+              v-model="password"
               type="password"
               autocomplete="current-password"
               required=""
@@ -87,10 +93,9 @@
           </div>
         </div>
 
-   
-
         <div>
           <button
+          @click="googleSignIn"
             type="submit"
             class="
               group
@@ -125,14 +130,56 @@
       </form>
     </div>
   </div>
+  <div role="alert" v-if="error">
+    <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">Error</div>
+    <div
+      class="
+        border border-t-0 border-red-400
+        rounded-b
+        bg-red-100
+        px-4
+        py-3
+        text-red-700
+      "
+    >
+      <p>Error de usuario o contraseña.</p>
+    </div>
+  </div>
+
+  <pre>
+    {{ $data }}
+  </pre>
 </template>
 
 <script>
-
+import firebase from "firebase";
 
 export default {
-  components: {
-   
+  name: "SignUp",
+  components: {},
+  data() {
+    return {
+      usuario: '',
+      password: ''
+    }
+  },
+  methods: {
+    googleSignIn: function() {
+      let provider = new firebase.auth.GoogleAuthProvider();
+firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          let token = result.credential.accessToken;
+          let user = result.user;
+            console.log(token) // Token
+            console.log(user) // User that was authenticated
+        })
+        .catch((err) => {
+          console.log(err); // This will give you all the information needed to further debug any errors
+        });
+    }
+  },
   }
-}
+
 </script>

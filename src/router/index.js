@@ -4,6 +4,14 @@ import Chatgeneral from '../views/Chatgeneral.vue'
 
 const routes = [
   {
+    path: '/chatgeneral',
+    redirect: '/'
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/'
+  },
+  {
     path: '/',
     name: 'Home',
     component: Home
@@ -11,7 +19,8 @@ const routes = [
   {
     path: '/chatgeneral',
     name: 'Chatgeneral',
-    component: Chatgeneral
+    component: Chatgeneral,
+
   },
   {
     path: '/about',
@@ -22,7 +31,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
- 
+
 ]
 
 const router = createRouter({
@@ -30,4 +39,7 @@ const router = createRouter({
   routes
 })
 
+
+
 export default router
+
